@@ -15,6 +15,10 @@
         {
           'label': 'Toggle'
           'command': 'pompomodoro:toggle'
+        },
+        {
+          'label': 'Kick off day!'
+          'command': 'pompomodoro:start'
         }
       ]
     ]

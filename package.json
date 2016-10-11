@@ -6,7 +6,7 @@
   "keywords": [
   ],
   "activationCommands": {
-    "atom-workspace": "pompomodoro:toggle"
+    "atom-workspace": "pompomodoro:start"
   },
   "repository": "https://github.com/atom/pompomodoro",
   "license": "MIT",
