@@ -17,6 +17,7 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:toggle': => @toggle()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:break': => @break()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:work': => @work()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -28,6 +29,9 @@ module.exports = Pompomodoro =
 
   break: ->
     @modalPanel.show()
+
+  work: ->
+    @modalPanel.hide()
 
   start: ->
     console.log "Pompomodoro has started!"

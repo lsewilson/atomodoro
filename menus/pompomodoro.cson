@@ -19,10 +19,6 @@
         {
           'label': 'Kick off day!'
           'command': 'pompomodoro:start'
-        },
-        {
-          'label': 'Take a break!'
-          'command': 'pompomodoro:break'
         }
       ]
     ]
