@@ -25,3 +25,10 @@ describe "Pompomodoro", ->
       expect(obscureElement).toBeVisible()
       atom.commands.dispatch workspaceElement, 'pompomodoro:work'
       expect(obscureElement).not.toBeVisible()
+
+  describe "start", ->
+    it "hides code after 5s", ->
+      jasmine.attachToDOM(workspaceElement)
+      atom.commands.dispatch workspaceElement, 'pompomodoro:start'
+      obscureElement = workspaceElement.querySelector('.obscure')
+      setTimeout(expect(obscureElement).toBeVisible(), 10000)
