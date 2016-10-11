@@ -35,7 +35,9 @@ module.exports = Pompomodoro =
 
   start: ->
     console.log "Pompomodoro has started!"
-    setTimeout(console.log "Timeout finished", 5000)
+    setTimeout ( =>
+      @modalPanel.show()
+      ), 5000
 
   toggle: ->
     console.log 'Pompomodoro was toggled!'
