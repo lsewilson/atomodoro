@@ -15,6 +15,7 @@ module.exports = Pompomodoro =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -24,6 +25,9 @@ module.exports = Pompomodoro =
   serialize: ->
     pompomodoroViewState: @pompomodoroView.serialize()
 
+  start: ->
+    console.log "Pompomodoro has started!"
+    
   toggle: ->
     console.log 'Pompomodoro was toggled!'
 
