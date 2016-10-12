@@ -30,6 +30,19 @@ describe "Pompomodoro", ->
       Pompomodoro.work()
       expect(obscureElement).not.toBeVisible()
 
+  describe "pomodoro:start", ->
+
+    beforeEach ->
+      atom.config.set('pompomodoro.numberOfSessions', 4)
+      atom.config.set('pompomodoro.breakLength', 5)
+      atom.config.set('pompomodoro.workIntervalLength', 25)
+
+    it "has variable settings", ->
+      expect(Pompomodoro.noOfIntervals).toBe 4
+      expect(Pompomodoro.breakLength).toBe 300000
+      expect(Pompomodoro.workTime).toBe 1500000
+
+
   # describe "pompomodoro:start", ->
   #   it "calls break when start is called", ->
 #     panel = atom.workspace.panelContainers.modal.panels[0]
@@ -53,4 +66,4 @@ describe "Pompomodoro", ->
 
   describe "start runs the first session", ->
     it "confirms the session starts", ->
-      expect(Pompomodoro.start()).toEqual("Session 0 was run")
+      expect(Pompomodoro.start()).toEqual("Session 1 was run")
