@@ -30,9 +30,11 @@ module.exports = Pompomodoro =
 
   break: ->
     @modalPanel.show()
+    document.onkeypress = -> false
 
   work: ->
     @modalPanel.hide()
+    document.onkeypress = null
 
   start: ->
     console.log "Pompomodoro has started!"
@@ -46,7 +48,7 @@ module.exports = Pompomodoro =
         @work()
         if i < 4
           @session(i+1)
-      ) , 2000
+      ) , 10000
     ) , 2000
     return "Session #{i} was run"
 

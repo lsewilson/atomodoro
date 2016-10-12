@@ -23,7 +23,6 @@ describe "Pompomodoro", ->
       Pompomodoro.break()
       expect(obscureElement).toBeVisible()
 
-
   describe "pompomodoro:work", ->
     it "renders the div invisible", ->
       Pompomodoro.break()
