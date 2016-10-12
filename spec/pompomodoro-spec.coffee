@@ -11,12 +11,12 @@ describe "Pompomodoro", ->
     obscureElement = workspaceElement.querySelector('.obscure')
     messageElement = workspaceElement.querySelector('.break-message')
 
-  describe "when the pompomodoro:break event is triggered", ->
+  describe "pomodoro:break", ->
     it "shows a message", ->
       expect(messageElement).not.toBeVisible()
       atom.commands.dispatch workspaceElement, 'pompomodoro:break'
       expect(messageElement).toBeVisible()
-      expect(messageElement.innerHTML).toEqual("It's time to take a break!") 
+      expect(messageElement.innerHTML).toEqual("It's time to take a break!")
 
     it "covers the view with a div", ->
       expect(obscureElement).not.toBeVisible()
@@ -24,15 +24,20 @@ describe "Pompomodoro", ->
       expect(obscureElement).toBeVisible()
 
 
-  describe "when the pomodoro break is over", ->
+  describe "pomodoro:work", ->
     it "renders the div invisible", ->
       atom.commands.dispatch workspaceElement, 'pompomodoro:break'
       expect(obscureElement).toBeVisible()
       atom.commands.dispatch workspaceElement, 'pompomodoro:work'
       expect(obscureElement).not.toBeVisible()
 
-  describe "start", ->
+  describe "pomodoro:start", ->
     it "hides code after 5s", ->
       setTimeout ( =>
         expect(obscureElement).toBeVisible()
-        ), 10000
+        ), 7000
+
+    it "hides code after 5s", ->
+      setTimeout ( =>
+        expect(obscureElement).not.toBeVisible()
+        ), 11000
