@@ -20,6 +20,7 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:work': => @work()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
 
+
   deactivate: ->
     @modalPanel.destroy()
     @subscriptions.dispose()
@@ -40,9 +41,8 @@ module.exports = Pompomodoro =
       @break()
       setTimeout ( =>
         @work()
-        console.log("break ended")
-      ), 10000
-    ), 3000
+      ), 5000
+    ), 5000
 
   skip: ->
     @modalPanel.hide()

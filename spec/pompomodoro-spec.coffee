@@ -12,7 +12,7 @@ describe "Pompomodoro", ->
     messageElement = workspaceElement.querySelector('.break-message')
 
   describe "pompomodoro:break", ->
-    it "shows a message", ->
+    fit "shows a message", ->
       expect(messageElement).not.toBeVisible()
       atom.commands.dispatch workspaceElement, 'pompomodoro:break'
       expect(messageElement).toBeVisible()
@@ -31,24 +31,20 @@ describe "Pompomodoro", ->
       atom.commands.dispatch workspaceElement, 'pompomodoro:work'
       expect(obscureElement).not.toBeVisible()
 
-  describe "pompomodoro:start", ->
-    it "hides code after 5s", ->
-      setTimeout ( =>
-        expect(obscureElement).toBeVisible()
-        ), 7000
-
-    it "creates two breaks", ->
-      panel = atom.workspace.panelContainers.modal.panels[0]
-      console.log( panel)
-      spy = spyOn(panel, 'show')
-      atom.commands.dispatch workspaceElement, 'pompomodoro:start'
-      console.log("spy= " + spy)
-      expect(panel.show).toHaveBeenCalled()
-
-    # # it "calls break within start", ->
-    # #   # setTimeout ( =>
-    # #   #   expect(obscureElement).not.toBeVisible()
-    # #   #   ), 11000
+  # describe "pompomodoro:start", ->
+  #   it "calls break when start is called", ->
+#     panel = atom.workspace.panelContainers.modal.panels[0]
+#     spy = spyOn(panel, 'show')
+  #     waits(2000)
+  #     runs ->
+  #       expect(panel.show.callCount).toEqual(1)
+  #
+  #   it "creates two breaks", ->
+  #     panel = atom.workspace.panelContainers.modal.panels[0]
+  #     spy = spyOn(panel, 'show')
+  #     waits(2000)
+  #     runs ->
+  #       expect(panel.show.callCount).toEqual(2)
 
   describe "pompomodoro:skip", ->
     it "overrides break", ->
