@@ -19,6 +19,15 @@
         {
           'label': 'Kick off day!'
           'command': 'pompomodoro:start'
+        },
+        {
+          'label': 'Skip break'
+          'submenu': [
+            {
+              'label': 'If you\'re sure...'
+              'command': 'pompomodoro:skip'
+            }
+          ]
         }
       ]
     ]
