@@ -14,11 +14,11 @@ module.exports = Pompomodoro =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:toggle': => @toggle()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:break': => @break()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:work': => @work()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -36,22 +36,20 @@ module.exports = Pompomodoro =
 
   start: ->
     console.log "Pompomodoro has started!"
+    @session(0)
+
+  session: (i) ->
+    console.log "Session #{i} started"
     setTimeout ( =>
       @break()
       setTimeout ( =>
         @work()
-        console.log("break ended")
-      ), 10000
-    ), 3000
+        if i < 4
+          @session(i+1)
+      ) , 2000
+    ) , 2000
+    return "Session #{i} was run"
 
   skip: ->
     @modalPanel.hide()
     console.log("skip worked")
-
-  toggle: ->
-    console.log 'Pompomodoro was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()

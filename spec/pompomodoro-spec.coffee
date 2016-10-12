@@ -14,36 +14,44 @@ describe "Pompomodoro", ->
   describe "pompomodoro:break", ->
     it "shows a message", ->
       expect(messageElement).not.toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(messageElement).toBeVisible()
       expect(messageElement.innerHTML).toEqual("It's time to take a break!")
 
     it "covers the view with a div", ->
       expect(obscureElement).not.toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(obscureElement).toBeVisible()
 
 
   describe "pompomodoro:work", ->
     it "renders the div invisible", ->
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(obscureElement).toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:work'
+      Pompomodoro.work()
       expect(obscureElement).not.toBeVisible()
 
-  describe "pompomodoro:start", ->
-    it "hides code after 5s", ->
-      setTimeout ( =>
-        expect(obscureElement).toBeVisible()
-        ), 7000
-
-    # it "calls break within start", ->
-    #   # setTimeout ( =>
-    #   #   expect(obscureElement).not.toBeVisible()
-    #   #   ), 11000
+  # describe "pompomodoro:start", ->
+  #   it "calls break when start is called", ->
+#     panel = atom.workspace.panelContainers.modal.panels[0]
+#     spy = spyOn(panel, 'show')
+  #     waits(2000)
+  #     runs ->
+  #       expect(panel.show.callCount).toEqual(1)
+  #
+  #   it "creates two breaks", ->
+  #     panel = atom.workspace.panelContainers.modal.panels[0]
+  #     spy = spyOn(panel, 'show')
+  #     waits(2000)
+  #     runs ->
+  #       expect(panel.show.callCount).toEqual(2)
 
   describe "pompomodoro:skip", ->
     it "overrides break", ->
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
-      atom.commands.dispatch workspaceElement, 'pompomodoro:skip'
+      Pompomodoro.break()
+      Pompomodoro.skip()
       expect(obscureElement).not.toBeVisible()
+
+  describe "start runs the first session", ->
+    it "confirms the session starts", ->
+      expect(Pompomodoro.start()).toEqual("Session 0 was run")
