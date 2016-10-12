@@ -37,6 +37,7 @@ describe "Pompomodoro", ->
         expect(obscureElement).toBeVisible()
         ), 7000
 
-    it "hides code after 5s", ->
-      spy = spyOn(Pompomodoro, 'break')
-      expect(spy).toHaveBeenCalled()
+    # it "calls break within start", ->
+    #   # setTimeout ( =>
+    #   #   expect(obscureElement).not.toBeVisible()
+    #   #   ), 11000
