@@ -37,10 +37,18 @@ describe "Pompomodoro", ->
         expect(obscureElement).toBeVisible()
         ), 7000
 
-    # it "calls break within start", ->
-    #   # setTimeout ( =>
-    #   #   expect(obscureElement).not.toBeVisible()
-    #   #   ), 11000
+    it "creates two breaks", ->
+      panel = atom.workspace.panelContainers.modal.panels[0]
+      console.log( panel)
+      spy = spyOn(panel, 'show')
+      atom.commands.dispatch workspaceElement, 'pompomodoro:start'
+      console.log("spy= " + spy)
+      expect(panel.show).toHaveBeenCalled()
+
+    # # it "calls break within start", ->
+    # #   # setTimeout ( =>
+    # #   #   expect(obscureElement).not.toBeVisible()
+    # #   #   ), 11000
 
   describe "pompomodoro:skip", ->
     it "overrides break", ->
