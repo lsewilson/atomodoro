@@ -19,6 +19,7 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:break': => @break()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:work': => @work()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
 
   deactivate: ->
@@ -37,12 +38,27 @@ module.exports = Pompomodoro =
 
   start: ->
     console.log "Pompomodoro has started!"
+    @session(0)
+
+  session: (i) ->
+    console.log "Session #{i} started"
     setTimeout ( =>
       @break()
       setTimeout ( =>
         @work()
-      ), 5000
-    ), 5000
+        if i < 4
+          @session(i+1)
+      ) , 2000
+    ) , 2000
+
+  # session: ->
+  #   console.log("session started")
+  #   setTimeout ( =>
+  #     @break()
+  #     setTimeout ( =>
+  #       @work()
+  #     ), 2000
+  #   ), 2000
 
   skip: ->
     @modalPanel.hide()
