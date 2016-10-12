@@ -12,23 +12,23 @@ describe "Pompomodoro", ->
     messageElement = workspaceElement.querySelector('.break-message')
 
   describe "pompomodoro:break", ->
-    fit "shows a message", ->
+    it "shows a message", ->
       expect(messageElement).not.toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(messageElement).toBeVisible()
       expect(messageElement.innerHTML).toEqual("It's time to take a break!")
 
     it "covers the view with a div", ->
       expect(obscureElement).not.toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(obscureElement).toBeVisible()
 
 
   describe "pompomodoro:work", ->
     it "renders the div invisible", ->
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
+      Pompomodoro.break()
       expect(obscureElement).toBeVisible()
-      atom.commands.dispatch workspaceElement, 'pompomodoro:work'
+      Pompomodoro.work()
       expect(obscureElement).not.toBeVisible()
 
   # describe "pompomodoro:start", ->
@@ -48,6 +48,10 @@ describe "Pompomodoro", ->
 
   describe "pompomodoro:skip", ->
     it "overrides break", ->
-      atom.commands.dispatch workspaceElement, 'pompomodoro:break'
-      atom.commands.dispatch workspaceElement, 'pompomodoro:skip'
+      Pompomodoro.break()
+      Pompomodoro.skip()
       expect(obscureElement).not.toBeVisible()
+
+  describe "start runs the first session", ->
+    it "confirms the session starts", ->
+      expect(Pompomodoro.start()).toEqual("Session 0 was run")
