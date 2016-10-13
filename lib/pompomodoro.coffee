@@ -40,11 +40,11 @@ module.exports = Pompomodoro =
 
   break: ->
     @modalPanel.show()
-    # document.onkeypress = -> false
+    document.onkeypress = -> false
 
   work: ->
     @modalPanel.hide()
-    # document.onkeypress = null
+    document.onkeypress = null
 
   start: ->
     console.log "Pompomodoro has started!"
