@@ -10,7 +10,7 @@ module.exports = Pompomodoro =
 
     workIntervalLength:
       type: 'integer'
-      default: 5 # 25
+      default: 25 # 25
 
     numberOfSessions:
       type: 'integer'
@@ -35,8 +35,8 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
-    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 #* 60
-    @workTime = atom.config.get('pompomodoro.workIntervalLength')  * 1000 #* 60
+    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 * 60
+    @workTime = atom.config.get('pompomodoro.workIntervalLength')  * 1000 * 60
 
 
   break: ->
@@ -48,7 +48,7 @@ module.exports = Pompomodoro =
     document.onkeypress = null
     setTimeout ( =>
       atom.notifications.addInfo("Warning: 1 minute until your break!")
-    ) , @workTime - 1000 #* 60
+    ) , @workTime - 1000 * 60
 
   start: ->
     @work()
