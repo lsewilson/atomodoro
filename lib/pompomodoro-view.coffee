@@ -10,6 +10,7 @@ class PompomodoroView
     message.textContent = "It's time to take a break!"
     message.classList.add('break-message')
     @breakView.appendChild(message)
+    @breakView.setAttribute('style', 'position: fixed')
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
