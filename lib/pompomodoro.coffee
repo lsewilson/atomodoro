@@ -10,11 +10,11 @@ module.exports = Pompomodoro =
 
     workIntervalLength:
       type: 'integer'
-      default: 2 # 25
+      default: 5 # 25
 
     numberOfSessions:
       type: 'integer'
-      default: 4 # 4
+      default: 1 # 4
 
   pompomodoroView: null
   modalPanel: null
@@ -38,31 +38,13 @@ module.exports = Pompomodoro =
     @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 # * 60
     @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 # * 60
 
-    element = @modalPanel.getItem()
-
-    # element.parentNode.style.left = '0px'
-    # element.parentNode.style.padding = '0'
-    # element.parentNode.style.margin = '0'
-    # element.parentNode.style.width = '100%'
-    # element.parentNode.style.height = '100%'
-    # element.parentNode.style.opacity = '0.85'
-    element.style.position = 'fixed'
-
-  deactivate: ->
-    @modalPanel.destroy()
-    @subscriptions.dispose()
-    @pompomodoroView.destroy()
-
-  serialize: ->
-    pompomodoroViewState: @pompomodoroView.serialize()
-
   break: ->
     @modalPanel.show()
-    document.onkeypress = -> false
+    # document.onkeypress = -> false
 
   work: ->
     @modalPanel.hide()
-    document.onkeypress = null
+    # document.onkeypress = null
 
   start: ->
     console.log "Pompomodoro has started!"
@@ -83,3 +65,11 @@ module.exports = Pompomodoro =
   skip: ->
     @modalPanel.hide()
     console.log("skip worked")
+
+  deactivate: ->
+    @modalPanel.destroy()
+    @subscriptions.dispose()
+    @pompomodoroView.destroy()
+
+  serialize: ->
+    pompomodoroViewState: @pompomodoroView.serialize()
