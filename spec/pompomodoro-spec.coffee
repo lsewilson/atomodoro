@@ -29,6 +29,13 @@ describe "Pompomodoro", ->
       expect(obscureElement).toBeVisible()
       Pompomodoro.work()
       expect(obscureElement).not.toBeVisible()
+
+    it "Allows us to type during work periods", ->
+      Pompomodoro.break()
+      expect(document.onkeypress()).toEqual(false)
+      Pompomodoro.work()
+      expect(document.onkeypress()).toEqual(true)
+
     #
     # fit "overwrites setTimeout", ->
     #   @timerCallback = jasmine.createSpy('atom.notifications.addWarning("1 minute warning")')
@@ -39,7 +46,7 @@ describe "Pompomodoro", ->
     #   console.log(@timerCallback)
     #   expect(@timerCallback.wasCalled).toEqual(true)
 
-  describe "pomodoro:start", ->
+  describe "pompomodoro:start", ->
 
     beforeEach ->
       atom.config.set('pompomodoro.numberOfSessions', 4)
@@ -52,7 +59,7 @@ describe "Pompomodoro", ->
       expect(Pompomodoro.workTime).toBe 1500000
 
 
-  describe "pompomodoro:start", ->
+  # describe "pompomodoro:start", ->
     # it "calls break when start is called", ->
     #   panel = atom.workspace.panelContainers.modal.panels[0]
     #   jasmine.Clock.useMock()
@@ -75,6 +82,11 @@ describe "Pompomodoro", ->
       Pompomodoro.break()
       Pompomodoro.skip()
       expect(obscureElement).not.toBeVisible()
+
+    it 'allows you to type during the break time when you skip the break', ->
+      Pompomodoro.break()
+      Pompomodoro.skip()
+      expect(document.onkeypress()).toEqual(true)
 
   describe "pompomodoro:start runs the first session", ->
     it "confirms the session starts", ->
