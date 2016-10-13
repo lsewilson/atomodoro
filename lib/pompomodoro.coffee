@@ -10,7 +10,7 @@ module.exports = Pompomodoro =
 
     workIntervalLength:
       type: 'integer'
-      default: 25 # 25
+      default: 5 # 25
 
     numberOfSessions:
       type: 'integer'
@@ -35,16 +35,9 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
-    @breakLength = atom.config.get('pompomodoro.breakLength') * 60 * 1000
-    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 60 * 1000
+    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 #* 60
+    @workTime = atom.config.get('pompomodoro.workIntervalLength')  * 1000 #* 60
 
-  deactivate: ->
-    @modalPanel.destroy()
-    @subscriptions.dispose()
-    @pompomodoroView.destroy()
-
-  serialize: ->
-    pompomodoroViewState: @pompomodoroView.serialize()
 
   break: ->
     @modalPanel.show()
@@ -73,3 +66,11 @@ module.exports = Pompomodoro =
   skip: ->
     @modalPanel.hide()
     console.log("skip worked")
+
+  deactivate: ->
+    @modalPanel.destroy()
+    @subscriptions.dispose()
+    @pompomodoroView.destroy()
+
+  serialize: ->
+    pompomodoroViewState: @pompomodoroView.serialize()
