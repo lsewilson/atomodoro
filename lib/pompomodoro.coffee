@@ -2,6 +2,20 @@ PompomodoroView = require './pompomodoro-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = Pompomodoro =
+
+  config:
+    breakLength:
+      type: 'integer'
+      default: 5 # 5
+
+    workIntervalLength:
+      type: 'integer'
+      default: 5 # 25
+
+    numberOfSessions:
+      type: 'integer'
+      default: 4 # 4
+
   pompomodoroView: null
   modalPanel: null
   subscriptions: null
@@ -20,13 +34,10 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
-  deactivate: ->
-    @modalPanel.destroy()
-    @subscriptions.dispose()
-    @pompomodoroView.destroy()
+    @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
+    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 #* 60
+    @workTime = atom.config.get('pompomodoro.workIntervalLength')  * 1000 #* 60
 
-  serialize: ->
-    pompomodoroViewState: @pompomodoroView.serialize()
 
   break: ->
     @modalPanel.show()
@@ -38,7 +49,7 @@ module.exports = Pompomodoro =
 
   start: ->
     console.log "Pompomodoro has started!"
-    @session(0)
+    @session(1)
 
   session: (i) ->
     console.log "Session #{i} started"
@@ -46,12 +57,20 @@ module.exports = Pompomodoro =
       @break()
       setTimeout ( =>
         @work()
-        if i < 4
+        if i < @noOfIntervals
           @session(i+1)
-      ) , 10000
-    ) , 2000
+      ) , @breakLength
+    ) , @workTime
     return "Session #{i} was run"
 
   skip: ->
     @modalPanel.hide()
     console.log("skip worked")
+
+  deactivate: ->
+    @modalPanel.destroy()
+    @subscriptions.dispose()
+    @pompomodoroView.destroy()
+
+  serialize: ->
+    pompomodoroViewState: @pompomodoroView.serialize()
