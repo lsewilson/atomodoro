@@ -29,6 +29,15 @@ describe "Pompomodoro", ->
       expect(obscureElement).toBeVisible()
       Pompomodoro.work()
       expect(obscureElement).not.toBeVisible()
+    #
+    # fit "overwrites setTimeout", ->
+    #   @timerCallback = jasmine.createSpy('atom.notifications.addWarning("1 minute warning")')
+    #   jasmine.Clock.useMock()
+    #   Pompomodoro.work()
+    #   expect(@timerCallback).not.toHaveBeenCalled()
+    #   jasmine.Clock.tick(1001)
+    #   console.log(@timerCallback)
+    #   expect(@timerCallback.wasCalled).toEqual(true)
 
   describe "pomodoro:start", ->
 
@@ -43,20 +52,23 @@ describe "Pompomodoro", ->
       expect(Pompomodoro.workTime).toBe 1500000
 
 
-  # describe "pompomodoro:start", ->
-  #   it "calls break when start is called", ->
-#     panel = atom.workspace.panelContainers.modal.panels[0]
-#     spy = spyOn(panel, 'show')
-  #     waits(2000)
-  #     runs ->
-  #       expect(panel.show.callCount).toEqual(1)
-  #
-  #   it "creates two breaks", ->
-  #     panel = atom.workspace.panelContainers.modal.panels[0]
-  #     spy = spyOn(panel, 'show')
-  #     waits(2000)
-  #     runs ->
-  #       expect(panel.show.callCount).toEqual(2)
+  describe "pompomodoro:start", ->
+    # it "calls break when start is called", ->
+    #   panel = atom.workspace.panelContainers.modal.panels[0]
+    #   jasmine.Clock.useMock()
+    #   spy = spyOn(panel, 'show')
+    #   Pompomodoro.start()
+    #   console.log(Pompomodoro.workTime)
+    #   console.log(spy.callCount)
+    #   jasmine.Clock.tick(Pompomodoro.workTime + 1)
+    #   expect(panel.show.callCount).toEqual(1)
+
+    # it "creates two breaks", ->
+    #   panel = atom.workspace.panelContainers.modal.panels[0]
+    #   spy = spyOn(panel, 'show')
+    #   waits(2000)
+    #   runs ->
+    #     expect(panel.show.callCount).toEqual(2)
 
   describe "pompomodoro:skip", ->
     it "overrides break", ->
@@ -64,6 +76,6 @@ describe "Pompomodoro", ->
       Pompomodoro.skip()
       expect(obscureElement).not.toBeVisible()
 
-  describe "start runs the first session", ->
+  describe "pompomodoro:start runs the first session", ->
     it "confirms the session starts", ->
       expect(Pompomodoro.start()).toEqual("Session 1 was run")

@@ -46,8 +46,12 @@ module.exports = Pompomodoro =
   work: ->
     @modalPanel.hide()
     document.onkeypress = null
+    setTimeout ( =>
+      atom.notifications.addInfo("Warning: 1 minute until your break!")
+    ) , @workTime - 1000 #* 60
 
   start: ->
+    @work()
     console.log "Pompomodoro has started!"
     @session(1)
 
