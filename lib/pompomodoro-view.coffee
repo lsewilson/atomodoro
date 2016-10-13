@@ -9,11 +9,6 @@ class PompomodoroView
     message = document.createElement('div')
     message.textContent = "It's time to take a break!"
     message.classList.add('break-message')
-    message.classList.add('message')
-    message.setAttribute('style', 'background-color: black')
-    # message.setAttribute('style', 'text-align: center')
-    # message.setAttribute('style', 'position: relative')
-    # message.setAttribute('style', 'top: 50%')
     @breakView.appendChild(message)
     @breakView.setAttribute('style', 'position: fixed')
 
