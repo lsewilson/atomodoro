@@ -6,11 +6,11 @@ module.exports = Pompomodoro =
   config:
     breakLength:
       type: 'integer'
-      default: 5 # 5
+      default: 10 # 5
 
     workIntervalLength:
       type: 'integer'
-      default: 25 # 25
+      default: 2 # 25
 
     numberOfSessions:
       type: 'integer'
@@ -35,8 +35,18 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
-    @breakLength = atom.config.get('pompomodoro.breakLength') * 60 * 1000
-    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 60 * 1000
+    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 # * 60
+    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 # * 60
+
+    element = @modalPanel.getItem()
+
+    # element.parentNode.style.left = '0px'
+    # element.parentNode.style.padding = '0'
+    # element.parentNode.style.margin = '0'
+    # element.parentNode.style.width = '100%'
+    # element.parentNode.style.height = '100%'
+    # element.parentNode.style.opacity = '0.85'
+    element.style.position = 'fixed'
 
   deactivate: ->
     @modalPanel.destroy()
