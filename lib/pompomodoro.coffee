@@ -45,7 +45,7 @@ module.exports = Pompomodoro =
 
   work: ->
     @modalPanel.hide()
-    document.onkeypress = null
+    document.onkeypress = -> true
     setTimeout ( =>
       atom.notifications.addInfo("Warning: 1 minute until your break!")
     ) , @workTime - 1000 #* 60
@@ -69,7 +69,7 @@ module.exports = Pompomodoro =
 
   skip: ->
     @modalPanel.hide()
-    console.log("skip worked")
+    document.onkeypress = -> true
 
   deactivate: ->
     @modalPanel.destroy()
