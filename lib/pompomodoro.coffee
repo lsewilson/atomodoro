@@ -36,8 +36,7 @@ module.exports = Pompomodoro =
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
     @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 * 60
-    @workTime = atom.config.get('pompomodoro.workIntervalLength')  * 1000 * 60
-
+    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 * 60
 
   break: ->
     @modalPanel.show()
