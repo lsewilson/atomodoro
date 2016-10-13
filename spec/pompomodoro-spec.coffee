@@ -32,10 +32,8 @@ describe "Pompomodoro", ->
 
     it "Allows us to type during work periods", ->
       Pompomodoro.break()
-      console.log document.onkeypress()
       expect(document.onkeypress()).toEqual(false)
       Pompomodoro.work()
-      console.log document.onkeypress
       expect(document.onkeypress()).toEqual(true)
 
     #
@@ -48,7 +46,7 @@ describe "Pompomodoro", ->
     #   console.log(@timerCallback)
     #   expect(@timerCallback.wasCalled).toEqual(true)
 
-  describe "pomodoro:start", ->
+  describe "pompomodoro:start", ->
 
     beforeEach ->
       atom.config.set('pompomodoro.numberOfSessions', 4)
@@ -61,7 +59,7 @@ describe "Pompomodoro", ->
       expect(Pompomodoro.workTime).toBe 1500000
 
 
-  describe "pompomodoro:start", ->
+  # describe "pompomodoro:start", ->
     # it "calls break when start is called", ->
     #   panel = atom.workspace.panelContainers.modal.panels[0]
     #   jasmine.Clock.useMock()
