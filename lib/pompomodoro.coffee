@@ -6,11 +6,11 @@ module.exports = Pompomodoro =
   config:
     breakLength:
       type: 'integer'
-      default: 1 # 5
+      default: 10 # 5
 
     workIntervalLength:
       type: 'integer'
-      default: 1 # 25
+      default: 10 # 25
 
     numberOfSessions:
       type: 'integer'
@@ -32,12 +32,15 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
-    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 * 10 #* 60
-    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 * 10 #* 60
+    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 #* 60
+    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 #* 60
 
-  break: ->
-    @modalPanel.show()
-    document.onkeypress = -> false
+  break: (i) ->
+    if i < this.noOfIntervals
+      @modalPanel.show()
+      document.onkeypress = -> false
+    else
+      atom.notifications.addSuccess("Well done, you've finished your sprint!")
 
   work: ->
     this.hidePanel()
@@ -53,13 +56,10 @@ module.exports = Pompomodoro =
     console.log "Session #{i} started"
     this.work()
     setTimeout ( =>
-      this.break()
+      this.break(i)
       setTimeout ( =>
         if i < @noOfIntervals
           this.session(i+1)
-        else
-          atom.notifications.addSuccess("Well done, you've finished your sprint!")
-          this.hidePanel()
       ) , @breakLength
     ) , @workTime
     return "Session #{i} was run"
