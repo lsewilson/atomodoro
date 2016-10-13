@@ -29,10 +29,7 @@ module.exports = Pompomodoro =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:break': => @break()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:work': => @work()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:session': => @session()
 
     @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
     @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 * 10 #* 60
@@ -43,32 +40,33 @@ module.exports = Pompomodoro =
     document.onkeypress = -> false
 
   work: ->
-    @modalPanel.hide()
-    document.onkeypress = -> true
-
-  start: ->
-    console.log "Pompomodoro has started!"
-    @session(1)
-
-  session: (i) ->
-    console.log "Session #{i} started"
-    @work()
+    this.hidePanel()
     setTimeout ( =>
       atom.notifications.addInfo("1 minute until your break!")
     ) , @workTime - 1000 #* 60
+
+  start: ->
+    console.log "Pompomodoro has started!"
+    this.session(1)
+
+  session: (i) ->
+    console.log "Session #{i} started"
+    this.work()
     setTimeout ( =>
-      @break()
+      this.break()
       setTimeout ( =>
         if i < @noOfIntervals
-          @session(i+1)
+          this.session(i+1)
         else
           atom.notifications.addSuccess("Well done, you've finished your sprint!")
-          @work()
+          this.hidePanel()
       ) , @breakLength
     ) , @workTime
     return "Session #{i} was run"
 
-
+  hidePanel: ->
+    @modalPanel.hide()
+    document.onkeypress = -> true
 
 
   #
