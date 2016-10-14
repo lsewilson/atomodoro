@@ -28,4 +28,4 @@ Breaks can also be overridden via the atom tool bar.
 
 ## Contributors
 
-[Rosie Allott](https://github.com/rosieallott/) | [James Stonehill](https://github.com/jamesstonehill/) | [Ben Ross](https://github.com/benross92/)
+[Laura Wilson](https://github.com/lsewilson/) | [Rosie Allott](https://github.com/rosieallott/) | [James Stonehill](https://github.com/jamesstonehill/) | [Ben Ross](https://github.com/benross92/)

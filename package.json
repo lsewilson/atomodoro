@@ -1,12 +1,16 @@
 {
   "name": "Pompomodoro",
+  "consumedServices": {
+      "status-bar": {
+        "versions": {
+          "^1.0.0": "consumeStatusBar"
+        }
+      }
+    },
   "main": "./lib/pompomodoro",
   "version": "0.1.1",
   "description": "A tool for managing work intervals",
   "keywords": [],
-  "activationCommands": {
-    "atom-workspace": "pompomodoro:start"
-  },
   "repository": "https://github.com/lsewilson/pompomodoro",
   "license": "MIT",
   "engines": {
