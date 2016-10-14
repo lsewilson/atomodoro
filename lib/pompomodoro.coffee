@@ -1,4 +1,5 @@
 PompomodoroView = require './pompomodoro-view'
+PomoBar = require './status-bar-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = Pompomodoro =
@@ -7,12 +8,12 @@ module.exports = Pompomodoro =
     breakLength:
       description: 'Length of break in minutes'
       type: 'integer'
-      default: 5
+      default: 1
 
     workIntervalLength:
       description: 'Length of work intervals in minutes'
       type: 'integer'
-      default: 25
+      default: 1
 
     numberOfIntervals:
       description: 'Number of work intervals in a session'
@@ -25,6 +26,12 @@ module.exports = Pompomodoro =
   noOfIntervals: null
   breakLength: null
   workTime: null
+
+  pomoBar: null
+  currentPom: 1
+  barProxy: null
+  min: 0
+  sec: 0
 
   activate: (state) ->
     @pompomodoroView = new PompomodoroView(state.pompomodoroViewState)
@@ -41,6 +48,12 @@ module.exports = Pompomodoro =
     @breakLength = atom.config.get('Pompomodoro.breakLength') * 1000 * 60
     @workTime = atom.config.get('Pompomodoro.workIntervalLength') * 1000 * 60
 
+  consumeStatusBar: (statusBar) ->
+    @barProxy = statusBar
+    @pomoBar = new PomoBar([@min,@sec], [@currentPom,@noOfIntervals])
+    @statusBarTile1 = statusBar.addRightTile(item: @pomoBar.getTimer(), priority: 101)
+    @statusBarTile2 = statusBar.addRightTile(item: @pomoBar.getElement(), priority: 100)
+
   break: (i) ->
     if i < this.noOfIntervals
       @modalPanel.show()
@@ -53,6 +66,25 @@ module.exports = Pompomodoro =
     setTimeout ( =>
       atom.notifications.addInfo("1 minute until your break!")
     ) , @workTime - 1000 * 60
+    @startTime = new Date()
+    this.ticker()
+
+  ticker: ->
+    clock = setInterval ( =>
+      timeRemaining = (@workTime - (new Date() - @startTime))/1000
+      @min = Math.floor(timeRemaining / 60)
+      @sec = Math.floor(timeRemaining % 60)
+
+      @statusBarTile1?.destroy()
+      @statusBarTile1 = null
+      @statusBarTile2?.destroy()
+      @statusBarTile2 = null
+      @consumeStatusBar(@barProxy)
+
+      console.log("Time remaining: #{@min}:#{@sec}")
+
+      clearInterval(clock) if timeRemaining < 1
+    ) , 1000
 
   start: ->
     console.log "Pompomodoro has started!"
@@ -64,7 +96,8 @@ module.exports = Pompomodoro =
     setTimeout ( =>
       this.break(i)
       setTimeout ( =>
-        if i < @noOfIntervals
+        if @currentPom < @noOfIntervals
+          @currentPom++
           this.session(i+1)
       ) , @breakLength
     ) , @workTime
@@ -75,8 +108,7 @@ module.exports = Pompomodoro =
     document.onkeypress = -> true
 
   skip: ->
-    @modalPanel.hide()
-    document.onkeypress = -> true
+    this.hidePanel()
 
   deactivate: ->
     @modalPanel.destroy()
