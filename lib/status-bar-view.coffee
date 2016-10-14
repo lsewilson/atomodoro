@@ -4,14 +4,11 @@ class PomoBar
     # Create root element
     @sessionProgress = document.createElement('div')
     @sessionProgress.classList.add 'inline-block'
-    @sessionProgress.textContent = progress[0] + "/" + progress[1]
+    @sessionProgress.textContent = "Session: #{progress[0]}/#{progress[1]}"
 
     @timer = document.createElement('div')
     @timer.classList.add 'inline-block'
-    @timer.textContent = "#{time[0]}:#{time[1]}"
-
-  # Returns an object that can be retrieved when package is activated
-  serialize: ->
+    @timer.textContent = "Time left: #{time[0]}:#{time[1]}"
 
   # Tear down any state and detach
   destroy: ->

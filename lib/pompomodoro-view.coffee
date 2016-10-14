@@ -12,9 +12,6 @@ class PompomodoroView
     @breakView.appendChild(message)
     @breakView.setAttribute('style', 'position: fixed')
 
-  # Returns an object that can be retrieved when package is activated
-  serialize: ->
-
   # Tear down any state and detach
   destroy: ->
     @breakView.remove()

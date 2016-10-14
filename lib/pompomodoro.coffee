@@ -29,7 +29,7 @@ module.exports = Pompomodoro =
 
   pomoBar: null
   currentPom: 1
-  barProxy: null
+  statusBar: null
   min: 0
   sec: 0
 
@@ -49,7 +49,7 @@ module.exports = Pompomodoro =
     @workTime = atom.config.get('Pompomodoro.workIntervalLength') * 1000 * 60
 
   consumeStatusBar: (statusBar) ->
-    @barProxy = statusBar
+    @statusBar = statusBar
     @pomoBar = new PomoBar([@min,@sec], [@currentPom,@noOfIntervals])
     @statusBarTile1 = statusBar.addRightTile(item: @pomoBar.getTimer(), priority: 101)
     @statusBarTile2 = statusBar.addRightTile(item: @pomoBar.getElement(), priority: 100)
@@ -75,23 +75,17 @@ module.exports = Pompomodoro =
       @min = Math.floor(timeRemaining / 60)
       @sec = Math.floor(timeRemaining % 60)
 
-      @statusBarTile1?.destroy()
-      @statusBarTile1 = null
-      @statusBarTile2?.destroy()
-      @statusBarTile2 = null
-      @consumeStatusBar(@barProxy)
+      this.clearBar()
 
-      console.log("Time remaining: #{@min}:#{@sec}")
+      @consumeStatusBar(@statusBar)
 
       clearInterval(clock) if timeRemaining < 1
     ) , 1000
 
   start: ->
-    console.log "Pompomodoro has started!"
     this.session(1)
 
   session: (i) ->
-    console.log "Session #{i} started"
     this.work()
     setTimeout ( =>
       this.break(i)
@@ -101,7 +95,6 @@ module.exports = Pompomodoro =
           this.session(i+1)
       ) , @breakLength
     ) , @workTime
-    return "Session #{i} was run"
 
   hidePanel: ->
     @modalPanel.hide()
@@ -110,10 +103,13 @@ module.exports = Pompomodoro =
   skip: ->
     this.hidePanel()
 
+  clearBar: ->
+    @statusBarTile1?.destroy()
+    @statusBarTile1 = null
+    @statusBarTile2?.destroy()
+    @statusBarTile2 = null
+
   deactivate: ->
     @modalPanel.destroy()
     @subscriptions.dispose()
     @pompomodoroView.destroy()
-
-  serialize: ->
-    pompomodoroViewState: @pompomodoroView.serialize()
