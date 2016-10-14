@@ -1,10 +1,9 @@
 {
   "name": "Pompomodoro",
   "main": "./lib/pompomodoro",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A tool for managing work intervals",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
     "atom-workspace": "pompomodoro:start"
   },
@@ -13,6 +12,5 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
