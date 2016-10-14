@@ -1,14 +1,14 @@
 {
-  "name": "pompomodoro",
+  "name": "Pompomodoro",
   "main": "./lib/pompomodoro",
   "version": "0.0.0",
-  "description": "A short description of your package",
+  "description": "A tool for managing work intervals",
   "keywords": [
   ],
   "activationCommands": {
     "atom-workspace": "pompomodoro:start"
   },
-  "repository": "https://github.com/atom/pompomodoro",
+  "repository": "https://github.com/lsewilson/pompomodoro",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

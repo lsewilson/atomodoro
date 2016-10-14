@@ -6,7 +6,7 @@
       'label': 'Pompomodoro'
       'submenu': [
         {
-          'label': 'Kick off day!'
+          'label': 'Kick off!'
           'command': 'pompomodoro:start'
         },
         {
