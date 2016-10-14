@@ -19,6 +19,7 @@ module.exports = Pompomodoro =
   activate: (state) ->
     @pompomodoroView = new PompomodoroView(state.pompomodoroViewState)
     @modalPanel = atom.workspace.addModalPanel(item: @pompomodoroView.getElement(), visible: false)
+    @pomoBar = new PomoBar([@min,@sec], [@currentPom,@noOfIntervals])
 
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
@@ -30,7 +31,6 @@ module.exports = Pompomodoro =
 
   consumeStatusBar: (statusBar) ->
     @statusBar = statusBar
-    @pomoBar = new PomoBar([@min,@sec], [@currentPom,@noOfIntervals])
     @statusBarTile1 = statusBar.addRightTile(item: @pomoBar.getTimer(), priority: 101)
     @statusBarTile2 = statusBar.addRightTile(item: @pomoBar.getElement(), priority: 100)
 
@@ -54,8 +54,8 @@ module.exports = Pompomodoro =
       timeRemaining = (@workTime - (new Date() - @startTime))/1000
       @min = Math.floor(timeRemaining / 60)
       second = Math.floor(timeRemaining % 60)
-      @sec = if second < 10 then "0#{second}" else second 
-      this.clearBar()
+      @sec = if second < 10 then "0#{second}" else second
+      @pomoBar.update([@min,@sec],[@currentPom,@noOfIntervals])
       @consumeStatusBar(@statusBar)
       clearInterval(clock) if timeRemaining < 1
     ) , 1000
@@ -80,12 +80,6 @@ module.exports = Pompomodoro =
 
   skip: ->
     this.hidePanel()
-
-  clearBar: ->
-    @statusBarTile1?.destroy()
-    @statusBarTile1 = null
-    @statusBarTile2?.destroy()
-    @statusBarTile2 = null
 
   deactivate: ->
     @modalPanel.destroy()
