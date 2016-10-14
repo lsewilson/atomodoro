@@ -90,12 +90,12 @@ module.exports = Pompomodoro =
     breakLength:
       description: 'Length of break in minutes'
       type: 'integer'
-      default: 1
+      default: 5
 
     workIntervalLength:
       description: 'Length of work intervals in minutes'
       type: 'integer'
-      default: 1
+      default: 25
 
     numberOfIntervals:
       description: 'Number of work intervals in a session'
