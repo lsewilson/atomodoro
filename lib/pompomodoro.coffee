@@ -53,7 +53,8 @@ module.exports = Pompomodoro =
     clock = setInterval ( =>
       timeRemaining = (@workTime - (new Date() - @startTime))/1000
       @min = Math.floor(timeRemaining / 60)
-      @sec = Math.floor(timeRemaining % 60)
+      second = Math.floor(timeRemaining % 60)
+      @sec = if second < 10 then "0#{second}" else second 
       this.clearBar()
       @consumeStatusBar(@statusBar)
       clearInterval(clock) if timeRemaining < 1
@@ -95,12 +96,12 @@ module.exports = Pompomodoro =
     breakLength:
       description: 'Length of break in minutes'
       type: 'integer'
-      default: 5
+      default: 1
 
     workIntervalLength:
       description: 'Length of work intervals in minutes'
       type: 'integer'
-      default: 25
+      default: 1
 
     numberOfIntervals:
       description: 'Number of work intervals in a session'
