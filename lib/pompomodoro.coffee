@@ -4,32 +4,15 @@ PomoBar = require './status-bar-view'
 
 module.exports = Pompomodoro =
 
-  config:
-    breakLength:
-      description: 'Length of break in minutes'
-      type: 'integer'
-      default: 1
-
-    workIntervalLength:
-      description: 'Length of work intervals in minutes'
-      type: 'integer'
-      default: 1
-
-    numberOfIntervals:
-      description: 'Number of work intervals in a session'
-      type: 'integer'
-      default: 4
-
   pompomodoroView: null
   modalPanel: null
   subscriptions: null
   noOfIntervals: null
   breakLength: null
   workTime: null
-
   pomoBar: null
-  currentPom: 1
   statusBar: null
+  currentPom: 1
   min: 0
   sec: 0
 
@@ -37,10 +20,7 @@ module.exports = Pompomodoro =
     @pompomodoroView = new PompomodoroView(state.pompomodoroViewState)
     @modalPanel = atom.workspace.addModalPanel(item: @pompomodoroView.getElement(), visible: false)
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
-
-    # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
 
@@ -74,11 +54,8 @@ module.exports = Pompomodoro =
       timeRemaining = (@workTime - (new Date() - @startTime))/1000
       @min = Math.floor(timeRemaining / 60)
       @sec = Math.floor(timeRemaining % 60)
-
       this.clearBar()
-
       @consumeStatusBar(@statusBar)
-
       clearInterval(clock) if timeRemaining < 1
     ) , 1000
 
@@ -113,3 +90,19 @@ module.exports = Pompomodoro =
     @modalPanel.destroy()
     @subscriptions.dispose()
     @pompomodoroView.destroy()
+
+  config:
+    breakLength:
+      description: 'Length of break in minutes'
+      type: 'integer'
+      default: 5
+
+    workIntervalLength:
+      description: 'Length of work intervals in minutes'
+      type: 'integer'
+      default: 25
+
+    numberOfIntervals:
+      description: 'Number of work intervals in a session'
+      type: 'integer'
+      default: 4
