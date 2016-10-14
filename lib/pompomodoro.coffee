@@ -37,9 +37,9 @@ module.exports = Pompomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
     @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
 
-    @noOfIntervals = atom.config.get('pompomodoro.numberOfSessions')
-    @breakLength = atom.config.get('pompomodoro.breakLength') * 1000 #* 60
-    @workTime = atom.config.get('pompomodoro.workIntervalLength') * 1000 #* 60
+    @noOfIntervals = atom.config.get('Pompomodoro.numberOfIntervals')
+    @breakLength = atom.config.get('Pompomodoro.breakLength') * 1000 * 60
+    @workTime = atom.config.get('Pompomodoro.workIntervalLength') * 1000 * 60
 
   break: (i) ->
     if i < this.noOfIntervals
@@ -52,12 +52,10 @@ module.exports = Pompomodoro =
     this.hidePanel()
     setTimeout ( =>
       atom.notifications.addInfo("1 minute until your break!")
-    ) , @workTime - 1000 #* 60
+    ) , @workTime - 1000 * 60
 
   start: ->
     console.log "Pompomodoro has started!"
-    console.log(@workTime)
-
     this.session(1)
 
   session: (i) ->
