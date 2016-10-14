@@ -25,3 +25,7 @@ Or via the menu.
 Breaks can also be overridden via the atom tool bar.
 
 ![Menu](http://i.imgur.com/g8hWVle.png)
+
+## Contributors
+
+[Rosie Allott](https://github.com/rosieallott/) | [James Stonehill](https://github.com/jamesstonehill/) | [Ben Ross](https://github.com/benross92/)
