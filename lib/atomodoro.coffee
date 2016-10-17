@@ -25,10 +25,6 @@ module.exports = Atomodoro =
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomodoro:start': => @start()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atomodoro:skip': => @skip()
 
-    @noOfIntervals = atom.config.get('atomodoro.numberOfIntervals')
-    @breakLength = atom.config.get('atomodoro.breakLength') * 1000 * 60
-    @workTime = atom.config.get('atomodoro.workIntervalLength') * 1000 * 60
-
   consumeStatusBar: (statusBar) ->
     @statusBar = statusBar
     @statusBarTile1 = statusBar.addRightTile(item: @pomoBar.getTimer(), priority: 101)
@@ -61,8 +57,10 @@ module.exports = Atomodoro =
     ) , 1000
 
   start: ->
-
-
+    @noOfIntervals = atom.config.get('atomodoro.numberOfIntervals')
+    @breakLength = atom.config.get('atomodoro.breakLength') * 1000 * 60
+    @workTime = atom.config.get('atomodoro.workIntervalLength') * 1000 * 60
+    
     this.session(1)
 
   session: (i) ->
