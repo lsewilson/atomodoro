@@ -3,18 +3,18 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'Pompomodoro'
+      'label': 'Atomodoro'
       'submenu': [
         {
           'label': 'Kick off!'
-          'command': 'pompomodoro:start'
+          'command': 'atomodoro:start'
         },
         {
           'label': 'Skip break'
           'submenu': [
             {
               'label': 'If you\'re sure...'
-              'command': 'pompomodoro:skip'
+              'command': 'atomodoro:skip'
             }
           ]
         }

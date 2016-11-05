@@ -1,10 +1,10 @@
-PompomodoroView = require './pompomodoro-view'
+AtomodoroView = require './atomodoro-break-view'
 PomoBar = require './status-bar-view'
 {CompositeDisposable} = require 'atom'
 
-module.exports = Pompomodoro =
+module.exports = Atomodoro =
 
-  pompomodoroView: null
+  atomodoroView: null
   modalPanel: null
   subscriptions: null
   noOfIntervals: null
@@ -17,17 +17,13 @@ module.exports = Pompomodoro =
   sec: 0
 
   activate: (state) ->
-    @pompomodoroView = new PompomodoroView(state.pompomodoroViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @pompomodoroView.getElement(), visible: false)
+    @atomodoroView = new AtomodoroView(state.atomodoroViewState)
+    @modalPanel = atom.workspace.addModalPanel(item: @atomodoroView.getElement(), visible: false)
     @pomoBar = new PomoBar([@min,@sec], [@currentPom,@noOfIntervals])
 
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:start': => @start()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'pompomodoro:skip': => @skip()
-
-    @noOfIntervals = atom.config.get('Pompomodoro.numberOfIntervals')
-    @breakLength = atom.config.get('Pompomodoro.breakLength') * 1000 * 60
-    @workTime = atom.config.get('Pompomodoro.workIntervalLength') * 1000 * 60
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atomodoro:start': => @start()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atomodoro:skip': => @skip()
 
   consumeStatusBar: (statusBar) ->
     @statusBar = statusBar
@@ -39,7 +35,7 @@ module.exports = Pompomodoro =
       @modalPanel.show()
       document.onkeypress = -> false
     else
-      atom.notifications.addSuccess("Well done, you've finished your sprint!")
+      atom.notifications.addSuccess("Well done, you've finished your session!")
 
   work: ->
     this.hidePanel()
@@ -61,6 +57,10 @@ module.exports = Pompomodoro =
     ) , 1000
 
   start: ->
+    @noOfIntervals = atom.config.get('atomodoro.numberOfIntervals')
+    @breakLength = atom.config.get('atomodoro.breakLength') * 1000 * 60
+    @workTime = atom.config.get('atomodoro.workIntervalLength') * 1000 * 60
+    
     this.session(1)
 
   session: (i) ->
@@ -84,7 +84,7 @@ module.exports = Pompomodoro =
   deactivate: ->
     @modalPanel.destroy()
     @subscriptions.dispose()
-    @pompomodoroView.destroy()
+    @atomodoroView.destroy()
 
   config:
     breakLength:

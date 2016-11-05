@@ -1,13 +1,13 @@
-# Pompomodoro Atom package
+# Atomodoro Atom package
 
-Pompomodoro is a tool for managing work sessions on atom. The number of work intervals and time spent working and taking breaks is fully customizable. Once activated for a session, Pompomodoro will run in the background and let you know when it's time to take a break, with a full screen message which obscures your window and prevents you from typing.
+Atomodoro is a tool for managing work sessions on atom. The number of work intervals and time spent working and taking breaks is fully customizable. Once activated for a session, Atomodoro will run in the background and let you know when it's time to take a break, with a full screen message which obscures your window and prevents you from typing.
 
 For information on the original pomodoro technique, click [here](http://pomodorotechnique.com/).
 
 ## Installation
 
 ```
-$ apm install pompomodoro
+$ apm install atomodoro
 ```
 
 ## Customizing settings
@@ -18,7 +18,7 @@ $ apm install pompomodoro
 
 You can initiate a session, e.g. 4 x work intervals, by running the atom command:
 
-`pompomodoro:start`
+`atomodoro:start`
 
 Or via the menu.
 

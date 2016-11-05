@@ -1,5 +1,5 @@
 {
-  "name": "Pompomodoro",
+  "name": "atomodoro",
   "consumedServices": {
     "status-bar": {
       "versions": {
@@ -7,11 +7,11 @@
       }
     }
   },
-  "main": "./lib/pompomodoro",
+  "main": "./lib/atomodoro",
   "version": "1.0.0",
   "description": "A tool for managing work intervals",
   "keywords": [],
-  "repository": "https://github.com/lsewilson/pompomodoro",
+  "repository": "https://github.com/lsewilson/atomodoro",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

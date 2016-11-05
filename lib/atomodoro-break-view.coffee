@@ -1,5 +1,5 @@
 module.exports =
-class PompomodoroView
+class AtomodoroView
   constructor: (serializedState) ->
     @breakView = document.createElement('div')
     @breakView.classList.add('obscure')
