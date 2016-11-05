@@ -78,7 +78,6 @@ describe "Atomodoro", ->
       expect(Atomodoro.breakLength).toBe 300000
       expect(Atomodoro.workTime).toBe 1500000
 
-
   # describe "atomodoro:start", ->
   #   it "calls break when start is called", ->
   #     panel = atom.workspace.panelContainers.modal.panels[0]
@@ -107,13 +106,3 @@ describe "Atomodoro", ->
       Atomodoro.break()
       Atomodoro.skip()
       expect(document.onkeypress()).toEqual(true)
-
-  describe "atomodoro:session", ->
-
-    beforeEach ->
-      jasmine.Clock.useMock()
-
-    it "confirms the session starts", ->
-      Atomodoro.session(1)
-      jasmine.clock().tick(workTime + 100)
-      expect(Atomodoro.break().calls.count()).toEqual(1);
