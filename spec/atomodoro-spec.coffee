@@ -1,7 +1,7 @@
 Atomodoro = require '../lib/atomodoro'
 
 describe "Atomodoro", ->
-  [workspaceElement, activationPromise, obscureElement, messageElement, notificationSpy, timerCallback] = []
+  [workspaceElement, activationPromise, obscureElement, messageElement, notificationSpy] = []
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
