@@ -24,7 +24,26 @@ Or via the menu.
 
 Breaks can also be overridden via the atom tool bar.
 
-![Menu](http://i.imgur.com/g8hWVle.png)
+![Menu](http://i.imgur.com/WOBl9W2.png)
+
+## Running tests
+
+Clone the repo.
+
+```
+$ git clone git@github.com:lsewilson/atomodoro.git
+```
+
+Open the repo in Atom.
+```
+$ cd atomodoro
+$ atom .
+```
+Run tests via the Atom toolbar: View > Developer > Run Package Specs
+
+## Contributing to the Package
+
+Please fork the repo and create a pull request with any suggested changes or create an issue.
 
 ## Contributors
 
