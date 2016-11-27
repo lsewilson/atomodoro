@@ -56,11 +56,13 @@ module.exports = Atomodoro =
       clearInterval(clock) if timeRemaining < 1
     ) , 1000
 
-  start: ->
+  getSettings: ->
     @noOfIntervals = atom.config.get('atomodoro.numberOfIntervals')
     @breakLength = atom.config.get('atomodoro.breakLength') * 1000 * 60
     @workTime = atom.config.get('atomodoro.workIntervalLength') * 1000 * 60
-    
+
+  start: ->
+    this.getSettings()
     this.session(1)
 
   session: (i) ->
